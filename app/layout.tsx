@@ -6,7 +6,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <header>共通ヘッダーです</header>
+        <header>勉強中</header>
         {children}
       </body>
     </html>

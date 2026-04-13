@@ -1,52 +1,64 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
+import { useState } from 'react'
 
-type Instrument = {
+type Job = {
   id: number
-  name: string
+  title: string
+  category: string
+  salary: number
 }
 
+const jobs: Job[] = [
+  { id: 1, title: '経験者歓迎！大手企業でのWebエンジニア募集', category: 'エンジニア', salary: 700 },
+  { id: 2, title: '未経験OK！営業アシスタント急募', category: '営業', salary: 350 },
+  { id: 3, title: 'UI/UXデザイナー募集！急成長中のスタートアップ', category: 'デザイン', salary: 550 },
+]
+
+const categories = ['営業', 'エンジニア', 'デザイン']
+
 export default function Page() {
-  const [items, setItems] = useState<Instrument[]>([])
-  const [loading, setLoading] = useState(true)
+  const [count, setCount] = useState(0)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 
-  useEffect(() => {
-    const load = async () => {
-      const supabase = createClient()
+  function toggleCategory(category: string) {
+    setSelectedCategories((prev) => {
+      if (prev.includes(category)) return prev.filter((c) => c !== category)
+      return [...prev, category]
+    })
+  }
 
-      const { data, error } = await supabase
-        .from('instruments')
-        .select('id, name')
-        .order('id')
-
-      if (error) {
-        console.error(error)
-      } else {
-        setItems(data ?? [])
-      }
-
-      setLoading(false)
-    }
-
-    load()
-  }, [])
+  const filteredJobs =
+    selectedCategories.length === 0
+      ? jobs
+      : jobs.filter((job) => selectedCategories.includes(job.category))
 
   return (
-    <main style={{ padding: 24 }}>
-      <h1>baseconnect_arimoto</h1>
-      <p>Supabase 接続テスト</p>
+    <main>
+      <h1>求人検索</h1>
+      <p>現在値: {count}</p>
+      <button onClick={() => setCount(count + 1)}>+1</button>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      )}
+      {categories.map((category) => (
+        <label key={category} style={{ display: 'block' }}>
+          <input
+            type="checkbox"
+            checked={selectedCategories.includes(category)}
+            onChange={() => toggleCategory(category)}
+          />
+          {category}
+        </label>
+      ))}
+
+      <ul>
+        {filteredJobs.map((job) => (
+          <li key={job.id}>
+            <p>{job.title}</p>
+            <p>カテゴリ: {job.category}</p>
+            <p>年収: {job.salary}万円</p>
+          </li>
+        ))}
+      </ul>
     </main>
   )
 }
