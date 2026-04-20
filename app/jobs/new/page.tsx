@@ -1,34 +1,47 @@
+import { JOB_CATEGORIES } from '@/lib/jobs/constants'
+import { createJobAction } from './actions'
+
 export default function NewJobPage() {
+
   return (
-    <main style={{ padding: 24 }}>
-      <h1>求人投稿</h1>
+    <main className="mx-auto px-6 py-[10px]">
+      <h2 className="mb-7 mt-0 text-[28px] font-bold">求人投稿</h2>
 
-      <form style={{ marginTop: 16, display: 'grid', gap: 16, maxWidth: 640 }}>
-        <div>
-          <label htmlFor="category">求人カテゴリ</label>
-          <br />
-          <select id="category" name="category" style={{ marginTop: 8, width: '100%', padding: 8 }}>
-            <option value="">カテゴリを選択</option>
-            <option value="営業">営業</option>
-            <option value="エンジニア">エンジニア</option>
-            <option value="デザイン">デザイン</option>
-            <option value="カスタマーサポート">カスタマーサポート</option>
-          </select>
-        </div>
+      <form
+        action={createJobAction}
+        className="grid gap-y-[18px]"
+        >
+        <label htmlFor="category"
+          className="mb-0 block text-base font-medium"
+          >求人カテゴリ選択</label>
+        <select id="category" name="category"
+          className="h-10 w-[250px] appearance-none rounded-[2px] border border-[#d7d7d7] bg-white px-[14px] text-base"
+        >
+          <option value="">カテゴリを選択 ▼</option>
+          {JOB_CATEGORIES.map((category) => (
+            <option key={category} value={category}>
+              {category} ▼
+            </option>
+          ))}
+        </select>
 
-        <div>
-          <label htmlFor="salary">年収（万円）</label>
-          <br />
-          <input id="salary" name="salary" type="number" style={{ marginTop: 8, width: '100%', padding: 8 }} />
-        </div>
+        <label htmlFor="salary"
+          className="mb-0 block text-base font-medium"
+          >年収（万円）</label>
+        <input id="salary" name="salary" type="number"
+          className="h-10 w-[250px] rounded-[2px] border border-[#d7d7d7] bg-white px-[14px] text-base"
+         />
 
-        <div>
-          <label htmlFor="title">求人タイトル</label>
-          <br />
-          <input id="title" name="title" type="text" style={{ marginTop: 8, width: '100%', padding: 8 }} />
-        </div>
+        <label htmlFor="title"
+          className="mb-0 block text-base font-medium"
+          >求人タイトル</label>
+        <input id="title" name="title" type="text"
+          className="h-10 w-full rounded-[2px] border border-[#d7d7d7] bg-white px-[14px] text-base"
+         />
 
-        <button type="submit" style={{ padding: 10 }}>
+        <button type="submit"
+          className="mt-[18px] h-10 w-[250px] cursor-pointer rounded-md border-0 bg-[#3da7e3] text-[15px] font-medium leading-none text-white"
+        >
           投稿
         </button>
       </form>
