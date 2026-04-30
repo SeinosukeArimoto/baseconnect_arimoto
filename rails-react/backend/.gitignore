@@ -1,0 +1,36 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Keep pid directory but ignore pid files
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Keep cache directory placeholder only
+/tmp/cache/*
+!/tmp/cache/
+!/tmp/cache/.keep
+
+# Keep sockets directory placeholder only
+/tmp/sockets/*
+!/tmp/sockets/
+!/tmp/sockets/.keep
+
+# Ignore storage by default
+/storage/*
+!/storage/.keep
+
+# Ignore master key for decrypting credentials
+/config/master.key
+
+# Ignore local env files
+/.env*
+
+# Ignore byebug history file.
+.byebug_history
