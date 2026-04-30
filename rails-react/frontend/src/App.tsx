@@ -31,7 +31,7 @@ function App() {
   async function fetchJobs() {
     setError('')
     try {
-      const res = await fetch('http://localhost:3000/api/jobs')
+      const res = await fetch(`${API_BASE_URL}/api/jobs`)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = (await res.json()) as Job[]
       setJobs(data)

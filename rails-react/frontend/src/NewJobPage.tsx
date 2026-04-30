@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const JOB_CATEGORIES = [
   '事務',
   'エンジニア',
@@ -26,7 +28,7 @@ function NewJobPage() {
     setError('')
 
     try {
-      const res = await fetch('http://localhost:3000/api/jobs', {
+      const res = await fetch(`${API_BASE_URL}/api/jobs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
